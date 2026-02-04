@@ -1,0 +1,100 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash",
+      "Edit",
+      "Write",
+      "Read",
+      "Task",
+      "Glob",
+      "Grep",
+      "mcp__github__*",
+      "mcp__context7__*",
+      "Skill(create-pr)",
+      "Skill(post-fresh-eyes-review)",
+      "Skill(create-deferred-issues)",
+      "Skill(verify-pr-ready)",
+      "Skill(merge-pr)",
+      "Skill(ship)",
+      "Skill(self-review)",
+      "Skill(block-issue)",
+      "Skill(next-issue)",
+      "Skill(prioritize)",
+      "Skill(commit-commands:commit)",
+      "Skill(commit-commands:commit-push-pr)",
+      "Skill(commit-commands:clean_gone)",
+      "Skill(pr-review-toolkit:review-pr)",
+      "Skill(code-review:code-review)",
+      "Skill(feature-dev:feature-dev)",
+      "Skill(frontend-design:frontend-design)",
+      "Skill(hookify:list)",
+      "Skill(hookify:configure)",
+      "Skill(hookify:hookify)",
+      "Skill(hookify:help)"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "command": "python .claude/reference/hooks/bash-safety.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "command": "python .claude/reference/hooks/security-check.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "command": "python .claude/reference/hooks/validate-pr-template.py"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__github__create_pull_request",
+        "hooks": [
+          {
+            "command": "python .claude/reference/hooks/validate-pr-template.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "command": "python .claude/reference/hooks/require-fresh-eyes-review.py"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__github__merge_pull_request",
+        "hooks": [
+          {
+            "command": "python .claude/reference/hooks/require-fresh-eyes-review.py"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|Bash",
+        "hooks": [
+          {
+            "command": "python .claude/reference/hooks/validate-self-review.py"
+          }
+        ]
+      }
+    ]
+  }
+}
