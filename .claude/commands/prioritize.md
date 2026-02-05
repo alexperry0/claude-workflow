@@ -51,10 +51,10 @@ gh issue list --state open --json number,title,labels,body --limit 100
 
 | Label | Weight |
 |-------|--------|
-| `priority:critical` | 100 |
-| `priority:high` | 80 |
-| `priority:medium` | 50 |
-| `priority:low` | 20 |
+| `priority: critical` | 100 |
+| `priority: high` | 80 |
+| `priority: medium` | 50 |
+| `priority: low` | 20 |
 | `blocked` | -100 |
 | `size:small` | +10 |
 | `size:large` | -5 |

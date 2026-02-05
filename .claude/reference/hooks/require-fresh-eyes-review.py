@@ -25,9 +25,9 @@ def get_pr_number_from_input(data: dict) -> int | None:
     tool_name = data.get("tool_name", "")
     tool_input = data.get("tool_input", {})
 
-    # MCP GitHub merge_pull_request
-    if tool_name == "mcp__github__merge_pull_request":
-        return tool_input.get("pull_number")
+    # MCP GitHub merge_pull_request (supports both mcp__github__ and mcp__plugin_github_github__ prefixes)
+    if tool_name.startswith("mcp") and tool_name.endswith("merge_pull_request"):
+        return tool_input.get("pull_number") or tool_input.get("pullNumber")
 
     # Bash with gh pr merge
     if tool_name == "Bash":

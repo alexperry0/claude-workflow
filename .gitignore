@@ -8,3 +8,10 @@ Desktop.ini
 .idea/
 *.user
 *.suo
+
+# Python
+__pycache__/
+*.pyc
+
+# Archived plans (local working artifacts, not part of the framework)
+.claude/plans/

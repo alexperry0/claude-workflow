@@ -37,7 +37,7 @@ git diff           # if not staged
 
 ### Step 3: Apply Senior Developer Persona
 
-Load and apply the [Senior Developer persona](.claude/reference/personas/senior-developer.md).
+Load and apply the [Senior Developer persona](../reference/personas/senior-developer.md).
 
 Review the changes against this checklist:
 

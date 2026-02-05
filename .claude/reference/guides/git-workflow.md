@@ -22,24 +22,26 @@
 ### Branch Structure
 ```
 main (protected - requires PR)
-  └── feature/123-user-profile
+  └── feat/123-user-profile
   └── fix/456-null-reference
   └── refactor/789-clean-up-auth
 ```
 
 ### Branch Naming Convention
 ```
-feature/<issue#>-<short-description>   # New features
+feat/<issue#>-<short-description>      # New features
 fix/<issue#>-<short-description>       # Bug fixes
 refactor/<issue#>-<short-description>  # Code improvements
+docs/<issue#>-<short-description>      # Documentation
+test/<issue#>-<short-description>      # Test additions
 chore/<description>                    # Maintenance (no issue needed)
 ```
 
 ### Workflow
 1. Pick or create a GitHub issue
-2. Create branch: `git checkout -b feature/123-description`
+2. Create branch: `git checkout -b feat/123-description`
 3. Make changes with clear commits referencing the issue
-4. Push and create PR: `git push -u origin feature/123-description`
+4. Push and create PR: `git push -u origin feat/123-description`
 5. Run Fresh Eyes Review and post findings to PR
 6. Address any P1/blocking issues, re-run review if needed
 7. Merge when review passes → Issue auto-closes

@@ -44,7 +44,7 @@ Identified during code review of PR #[PR_NUMBER].
 
 ## Acceptance Criteria
 
-> Use GIVEN/WHEN/THEN format. See [Acceptance Criteria Guide](.claude/reference/guides/acceptance-criteria.md)
+> Use GIVEN/WHEN/THEN format. See [Acceptance Criteria Guide](../reference/guides/acceptance-criteria.md)
 
 - [ ] **AC-1**: GIVEN [precondition], WHEN [action], THEN [specific observable result]
 - [ ] **AC-2**: GIVEN [precondition], WHEN [action], THEN [specific observable result]
