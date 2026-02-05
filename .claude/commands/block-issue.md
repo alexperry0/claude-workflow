@@ -57,7 +57,8 @@ Before committing WIP, the build MUST pass. Run the build command from CLAUDE.md
 Only if there's meaningful progress to preserve:
 
 ```bash
-git add -A
+# Stage specific files you changed (avoid 'git add -A' which may stage secrets)
+git add <files-you-changed>
 git commit -m "wip: [brief description of progress] (#ISSUE_NUMBER)
 
 Work in progress - issue blocked.
