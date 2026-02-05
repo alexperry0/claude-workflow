@@ -51,10 +51,10 @@ gh issue list --state open --json number,title,labels,body --limit 100
 
 | Label | Weight |
 |-------|--------|
-| `priority:critical` | 100 |
-| `priority:high` | 80 |
-| `priority:medium` | 50 |
-| `priority:low` | 20 |
+| `priority: critical` | 100 |
+| `priority: high` | 80 |
+| `priority: medium` | 50 |
+| `priority: low` | 20 |
 | `blocked` | -100 |
 | `size:small` | +10 |
 | `size:large` | -5 |
@@ -93,7 +93,7 @@ Format output as:
 After running `/prioritize`, update the priority labels on issues if needed:
 
 ```bash
-gh issue edit <number> --add-label "priority:high" --remove-label "priority:medium"
+gh issue edit <number> --add-label "priority: high" --remove-label "priority: medium"
 ```
 
 Then `/next-issue` will automatically pick up the newly prioritized work.

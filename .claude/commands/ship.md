@@ -156,7 +156,7 @@ Clean up any stale local branches. If `commit-commands` plugin is available:
 | Merge blocked (no review) | Run `/post-fresh-eyes-review`, then retry merge |
 | Fresh Eyes finds P1/blocking | Fix issues, **return to Step 1** (self-review fixes!), push, re-run |
 | CI fails | Fix, commit, push, run `/verify-pr-ready` again |
-| Merge conflicts | Rebase on main, force push, restart from Step 5 |
+| Merge conflicts | Rebase on main, push (creates new commits), restart from Step 5. If push is rejected, ask user for confirmation to force push. |
 
 ## Usage
 

@@ -9,7 +9,9 @@
       "Glob",
       "Grep",
       "mcp__github__*",
+      "mcp__plugin_github_github__*",
       "mcp__context7__*",
+      "mcp__plugin_context7_context7__*",
       "Skill(create-pr)",
       "Skill(post-fresh-eyes-review)",
       "Skill(create-deferred-issues)",
@@ -74,6 +76,15 @@
         ]
       },
       {
+        "matcher": "mcp__plugin_github_github__create_pull_request",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/reference/hooks/validate-pr-template.py"
+          }
+        ]
+      },
+      {
         "matcher": "Bash",
         "hooks": [
           {
@@ -90,6 +101,15 @@
             "command": "python .claude/reference/hooks/require-fresh-eyes-review.py"
           }
         ]
+      },
+      {
+        "matcher": "mcp__plugin_github_github__merge_pull_request",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/reference/hooks/require-fresh-eyes-review.py"
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -99,6 +119,15 @@
           {
             "type": "command",
             "command": "python .claude/reference/hooks/validate-self-review.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .claude/reference/hooks/archive-plan.py"
           }
         ]
       }

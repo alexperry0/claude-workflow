@@ -33,14 +33,31 @@ def get_pr_body_from_input(data: dict) -> str | None:
     tool_name = data.get("tool_name", "")
     tool_input = data.get("tool_input", {})
 
-    # MCP GitHub create_pull_request
-    if tool_name == "mcp__github__create_pull_request":
+    # MCP GitHub create_pull_request (supports both mcp__github__ and mcp__plugin_github_github__ prefixes)
+    if tool_name.startswith("mcp") and "github" in tool_name and tool_name.endswith("create_pull_request"):
         return tool_input.get("body", "")
 
     # Bash with gh pr create
     if tool_name == "Bash":
         command = tool_input.get("command", "")
-        if "gh pr create" in command:
+
+        # Strip heredoc/body content before checking if this is a gh pr create command.
+        # This prevents false positives when "gh pr create" appears inside a string
+        # argument to a different command (e.g., gh issue create --body "mentions gh pr create").
+        command_without_heredocs = re.sub(
+            r"\$\(cat\s+<<-?'?(\w+)'?\s*.*?\s*\1\s*\)", "", command, flags=re.DOTALL
+        )
+        command_without_body_strings = re.sub(
+            r'--body\s+"[^"]*"', "", command_without_heredocs, flags=re.DOTALL
+        )
+
+        # Check if "gh pr create" appears as an actual command invocation
+        # (at start, or after && or ; or |) rather than inside a string argument
+        is_pr_create = bool(re.search(
+            r'(?:^|&&|;|\|)\s*gh\s+pr\s+create\b', command_without_body_strings
+        ))
+
+        if is_pr_create:
             # Check for --body-file flag first
             body_file_match = re.search(r'--body-file\s+["\']?([^\s"\']+)["\']?', command)
             if body_file_match:

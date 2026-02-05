@@ -40,45 +40,58 @@ Every meaningful code change needs tests appropriate to the change:
 | UI component | UI test |
 | Trivial (typo, formatting) | None |
 
-<!-- Add project-specific architecture rules here -->
+For this framework repo, validation is done by running hooks against sample inputs (no test framework).
 
 ---
 
 ## GitHub Repository
 
-**Owner:** `YOUR_GITHUB_USERNAME`
-**Repo:** `YOUR_REPO_NAME`
-**Full path:** `YOUR_GITHUB_USERNAME/YOUR_REPO_NAME`
-**URL:** https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+**Owner:** `alexperry0`
+**Repo:** `claude-workflow`
+**Full path:** `alexperry0/claude-workflow`
+**URL:** https://github.com/alexperry0/claude-workflow
 
 ---
 
 ## Build Commands
 
 ```bash
-# Replace with your project's build commands
-dotnet build                # Build
-dotnet test                 # Test
-dotnet run                  # Run
+# Validate Python hooks compile correctly
+python -m py_compile .claude/reference/hooks/bash-safety.py
+python -m py_compile .claude/reference/hooks/security-check.py
+python -m py_compile .claude/reference/hooks/validate-pr-template.py
+python -m py_compile .claude/reference/hooks/validate-self-review.py
+python -m py_compile .claude/reference/hooks/require-fresh-eyes-review.py
+python -m py_compile .claude/reference/hooks/archive-plan.py
 ```
+
+No test framework — validation is done by running hooks against sample inputs.
 
 ---
 
 ## Project Overview
 
-<!-- Describe your project here -->
+AI-assisted development workflow framework for Claude Code. Provides a structured set of slash commands, safety hooks, review personas, and guides that enable Claude to autonomously process a GitHub issue backlog with quality gates.
 
 ## Architecture
 
-<!-- Describe your architecture, key components, and patterns here -->
+```
+.claude/
+├── commands/           # Slash commands (/ship, /next-issue, /self-review, etc.)
+├── reference/
+│   ├── guides/         # Detailed guides (git workflow, acceptance criteria)
+│   ├── hooks/          # Python safety hooks (PreToolUse/PostToolUse)
+│   └── personas/       # Review personas (senior developer, fresh eyes reviewer)
+├── plans/              # Archived plan files (gitignored, local working artifacts)
+└── settings.local.json # Permissions, hook configuration
+```
 
-## Configuration
+- **Commands** are markdown files that define multi-step workflows Claude follows
+- **Hooks** are Python scripts that enforce safety rules (block push to main, validate PR templates, require reviews)
+- **Personas** define review perspectives for self-review and independent review
+- **Guides** provide detailed reference for git workflow and acceptance criteria standards
 
-<!-- Describe configuration files, environment variables, secrets handling -->
-
-## Dependencies
-
-<!-- List key dependencies -->
+The framework follows a "trust but verify" model: Claude works autonomously but hooks enforce critical safety gates.
 
 ---
 
