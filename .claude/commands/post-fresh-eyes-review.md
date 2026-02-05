@@ -38,7 +38,7 @@ Use the Task tool to spawn a fresh context agent:
 ```
 Use Task tool with:
   subagent_type: "pr-review-toolkit:code-reviewer" (preferred) or "Explore"
-  model: "sonnet" (recommended for speed/quality balance)
+  model: "opus" (recommended for review quality)
   prompt: |
     You are performing a Fresh Eyes Review. You have NO context about why
     this code was written - only the diff speaks.
