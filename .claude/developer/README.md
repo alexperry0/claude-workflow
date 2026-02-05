@@ -82,6 +82,18 @@ If the review finds blocking issues, the AI fixes them and runs review again. It
 
 **Command:** `/post-fresh-eyes-review`
 
+### Deferred Issues
+
+If the review identified non-blocking improvements, the AI creates GitHub issues to capture them. This ensures feedback is not lost without blocking the current PR.
+
+**Command:** `/create-deferred-issues`
+
+### Verify CI
+
+The AI checks that CI passes and there are no blockers before merging.
+
+**Command:** `/verify-pr-ready`
+
 ### Merge
 
 When reviews pass and CI is green, the AI merges the pull request. It uses squash merge to keep history clean.
@@ -98,7 +110,7 @@ One command runs the entire ship process:
 /ship
 ```
 
-This runs: self-review → create PR → external review → merge
+This runs: self-review → create PR → external review → deferred issues → verify CI → merge
 
 ## Running the Loop
 
@@ -138,7 +150,7 @@ The AI adapts. It does not get frustrated or confused.
 | `/next-issue` | Pick and start the next issue |
 | `/self-review` | Review current changes |
 | `/create-pr` | Push and create pull request |
-| `/ship` | Full workflow: review → PR → merge |
+| `/ship` | Full workflow: review → PR → external review → deferred issues → verify → merge |
 | `/block-issue` | Mark current issue as blocked, move on |
 
 [Full command reference](commands.md)
