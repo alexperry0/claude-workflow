@@ -93,7 +93,7 @@ Format output as:
 After running `/prioritize`, update the priority labels on issues if needed:
 
 ```bash
-gh issue edit <number> --add-label "priority:high" --remove-label "priority:medium"
+gh issue edit <number> --add-label "priority: high" --remove-label "priority: medium"
 ```
 
 Then `/next-issue` will automatically pick up the newly prioritized work.
