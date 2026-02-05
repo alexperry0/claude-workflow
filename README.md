@@ -64,7 +64,7 @@ The framework commands reference standardized sections in your project's `CLAUDE
 | `## Build Commands` | `/self-review`, `/ship` | Yes |
 | `## Critical Rules` | `/self-review` (architecture checklist) | Yes |
 | `## Architecture` | Personas (project context) | Yes |
-| `## Testing Guidelines` | `/self-review` (test appropriateness) | Recommended |
+| `### 3. TEST APPROPRIATELY` (under Critical Rules) | `/self-review` (test appropriateness) | Yes (included in template) |
 | `## Autonomous Work Mode` | `/next-issue` | Optional |
 
 See `CLAUDE.md.template` for the full template.
