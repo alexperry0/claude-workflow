@@ -107,7 +107,7 @@ def main():
         try:
             source_real = os.path.realpath(file_path)
             plans_real = os.path.realpath(project_plans_dir)
-            if source_real.startswith(plans_real):
+            if source_real.startswith(plans_real + os.sep) or source_real == plans_real:
                 sys.exit(0)
         except (OSError, ValueError):
             pass

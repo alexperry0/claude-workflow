@@ -34,7 +34,7 @@ def get_pr_body_from_input(data: dict) -> str | None:
     tool_input = data.get("tool_input", {})
 
     # MCP GitHub create_pull_request (supports both mcp__github__ and mcp__plugin_github_github__ prefixes)
-    if tool_name.startswith("mcp") and tool_name.endswith("create_pull_request"):
+    if tool_name.startswith("mcp") and "github" in tool_name and tool_name.endswith("create_pull_request"):
         return tool_input.get("body", "")
 
     # Bash with gh pr create
@@ -45,7 +45,7 @@ def get_pr_body_from_input(data: dict) -> str | None:
         # This prevents false positives when "gh pr create" appears inside a string
         # argument to a different command (e.g., gh issue create --body "mentions gh pr create").
         command_without_heredocs = re.sub(
-            r"\$\(cat\s+<<'?EOF'?\s*.*?\s*EOF\s*\)", "", command, flags=re.DOTALL
+            r"\$\(cat\s+<<-?'?(\w+)'?\s*.*?\s*\1\s*\)", "", command, flags=re.DOTALL
         )
         command_without_body_strings = re.sub(
             r'--body\s+"[^"]*"', "", command_without_heredocs, flags=re.DOTALL
