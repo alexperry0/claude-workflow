@@ -53,7 +53,7 @@ Execute each step in sequence. **STOP and fix issues before continuing if any st
 
 ### Step 1: Self-Review
 
-Perform self-review using the Senior Developer persona.
+Perform self-review using the Self-Reviewer persona.
 
 **Read and follow:** `.claude/commands/self-review.md`
 

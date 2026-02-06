@@ -37,7 +37,7 @@ Before pushing code, the AI reviews its own work.
 
 ### Self-Review
 
-The AI reads its changes through the eyes of a senior developer. It checks:
+The AI reviews its own changes using the self-reviewer checklist. It checks:
 
 - **Security** — No secrets exposed, no injection vulnerabilities
 - **Correctness** — Logic is right, edge cases handled

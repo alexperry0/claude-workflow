@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code when working with this repository.
 
-**Hierarchy**: This file is authoritative. Guide files (`.claude/reference/guides/*.md`) elaborate but never contradict. If there's a conflict, this file wins.
+**Hierarchy**: This file is authoritative. Guide files (`.claude/guides/*.md`) elaborate but never contradict. If there's a conflict, this file wins.
 
 ---
 
@@ -96,5 +96,5 @@ These guides elaborate on rules defined above. They provide implementation detai
 
 | Guide | Purpose |
 |-------|---------|
-| [**Git Workflow**](.claude/reference/guides/git-workflow.md) | Branching, commits, PR process |
-| [**Acceptance Criteria**](.claude/reference/guides/acceptance-criteria.md) | GIVEN/WHEN/THEN format for issues |
+| [**Git Workflow**](.claude/guides/git-workflow.md) | Branching, commits, PR process |
+| [**Acceptance Criteria**](.claude/guides/acceptance-criteria.md) | GIVEN/WHEN/THEN format for issues |
