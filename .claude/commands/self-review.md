@@ -1,10 +1,10 @@
 ---
-description: Self-review changes using Senior Developer persona
+description: Self-review changes using Self-Reviewer persona
 ---
 
 # Self-Review
 
-Perform a self-review of current changes using the Senior Developer persona before pushing.
+Perform a self-review of current changes using the Self-Reviewer persona before pushing.
 
 ## Workflow Context
 
@@ -35,9 +35,9 @@ git diff --staged  # if staged
 git diff           # if not staged
 ```
 
-### Step 3: Apply Senior Developer Persona
+### Step 3: Apply Self-Reviewer Persona
 
-Load and apply the [Senior Developer persona](../reference/personas/senior-developer.md).
+Load and apply the [Self-Reviewer persona](../personas/self-reviewer.md).
 
 Review the changes against this checklist:
 

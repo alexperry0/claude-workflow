@@ -1,4 +1,4 @@
-# Senior Developer Persona
+# Self-Reviewer Persona
 
 Use this persona for Claude self-review. For independent review, see [Fresh Eyes Reviewer](./fresh-eyes-reviewer.md).
 

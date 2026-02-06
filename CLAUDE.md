@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code when working with this repository.
 
-**Hierarchy**: This file is authoritative. Guide files (`.claude/reference/guides/*.md`) elaborate but never contradict. If there's a conflict, this file wins.
+**Hierarchy**: This file is authoritative. Guide files (`.claude/guides/*.md`) elaborate but never contradict. If there's a conflict, this file wins.
 
 ---
 
@@ -57,12 +57,12 @@ For this framework repo, validation is done by running hooks against sample inpu
 
 ```bash
 # Validate Python hooks compile correctly
-python -m py_compile .claude/reference/hooks/bash-safety.py
-python -m py_compile .claude/reference/hooks/security-check.py
-python -m py_compile .claude/reference/hooks/validate-pr-template.py
-python -m py_compile .claude/reference/hooks/validate-self-review.py
-python -m py_compile .claude/reference/hooks/require-fresh-eyes-review.py
-python -m py_compile .claude/reference/hooks/archive-plan.py
+python -m py_compile .claude/hooks/bash-safety.py
+python -m py_compile .claude/hooks/security-check.py
+python -m py_compile .claude/hooks/validate-pr-template.py
+python -m py_compile .claude/hooks/validate-self-review.py
+python -m py_compile .claude/hooks/require-fresh-eyes-review.py
+python -m py_compile .claude/hooks/archive-plan.py
 ```
 
 No test framework — validation is done by running hooks against sample inputs.
@@ -77,15 +77,17 @@ AI-assisted development workflow framework for Claude Code. Provides a structure
 
 ```
 .claude/
+├── agents/             # Task tool agents (code-reviewer, plan-reviewer, etc.)
 ├── commands/           # Slash commands (/ship, /next-issue, /self-review, etc.)
-├── reference/
-│   ├── guides/         # Detailed guides (git workflow, acceptance criteria)
-│   ├── hooks/          # Python safety hooks (PreToolUse/PostToolUse)
-│   └── personas/       # Review personas (senior developer, fresh eyes reviewer)
+├── guides/             # Detailed guides (git workflow, acceptance criteria)
+├── hooks/              # Python safety hooks (PreToolUse/PostToolUse)
+├── personas/           # Review perspectives (self-reviewer, fresh eyes reviewer)
+├── templates/          # Output format templates (PR comment formats)
 ├── plans/              # Archived plan files (gitignored, local working artifacts)
 └── settings.local.json # Permissions, hook configuration
 ```
 
+- **Agents** are standalone review/orchestration agents invoked via the Task tool
 - **Commands** are markdown files that define multi-step workflows Claude follows
 - **Hooks** are Python scripts that enforce safety rules (block push to main, validate PR templates, require reviews)
 - **Personas** define review perspectives for self-review and independent review
@@ -109,5 +111,5 @@ These guides elaborate on rules defined above. They provide implementation detai
 
 | Guide | Purpose |
 |-------|---------|
-| [**Git Workflow**](.claude/reference/guides/git-workflow.md) | Branching, commits, PR process |
-| [**Acceptance Criteria**](.claude/reference/guides/acceptance-criteria.md) | GIVEN/WHEN/THEN format for issues |
+| [**Git Workflow**](.claude/guides/git-workflow.md) | Branching, commits, PR process |
+| [**Acceptance Criteria**](.claude/guides/acceptance-criteria.md) | GIVEN/WHEN/THEN format for issues |

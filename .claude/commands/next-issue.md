@@ -126,7 +126,7 @@ gh issue view <number>
 
 **Before implementing, assess the acceptance criteria.**
 
-See [Acceptance Criteria Guide](../reference/guides/acceptance-criteria.md) for the full standard.
+See [Acceptance Criteria Guide](../guides/acceptance-criteria.md) for the full standard.
 
 **Quality Check:**
 - Are criteria in GIVEN/WHEN/THEN format?

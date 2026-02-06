@@ -30,7 +30,7 @@ Review the comments and self-review notes for any items marked as:
 
 For each deferred item, create an issue with **GIVEN/WHEN/THEN acceptance criteria**.
 
-See [Acceptance Criteria Guide](../reference/guides/acceptance-criteria.md) for the full standard.
+See [Acceptance Criteria Guide](../guides/acceptance-criteria.md) for the full standard.
 
 ```bash
 gh issue create --title "[type]: [description]" --body "$(cat <<'EOF'
@@ -44,7 +44,7 @@ Identified during code review of PR #[PR_NUMBER].
 
 ## Acceptance Criteria
 
-> Use GIVEN/WHEN/THEN format. See [Acceptance Criteria Guide](../reference/guides/acceptance-criteria.md)
+> Use GIVEN/WHEN/THEN format. See [Acceptance Criteria Guide](../guides/acceptance-criteria.md)
 
 - [ ] **AC-1**: GIVEN [precondition], WHEN [action], THEN [specific observable result]
 - [ ] **AC-2**: GIVEN [precondition], WHEN [action], THEN [specific observable result]

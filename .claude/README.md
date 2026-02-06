@@ -62,7 +62,7 @@ You can add human review as another layer. The workflow supports it. But the wor
 
 If you want to understand the development loop: [Developer Guide](developer/README.md)
 
-If you want the detailed reference: [Reference Documentation](reference/)
+If you want the detailed reference, see the directories under `.claude/`: [guides/](guides/), [hooks/](hooks/), [personas/](personas/), [agents/](agents/)
 
 ---
 

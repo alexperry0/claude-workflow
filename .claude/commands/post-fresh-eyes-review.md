@@ -4,7 +4,7 @@ description: Run Fresh Eyes Review and post findings to the PR
 
 # Post Fresh Eyes Review to PR
 
-**CRITICAL: Use the template from `.claude/reference/templates/fresh-eyes-review-comment.md` EXACTLY.**
+**CRITICAL: Use the template from `.claude/templates/fresh-eyes-review-comment.md` EXACTLY.**
 
 **CRITICAL: ALWAYS POST FINDINGS FIRST. Even if the review finds bugs, POST the findings to the PR FIRST. This creates an audit trail. Then read the comment from the PR, fix issues, and return to self-review.**
 
@@ -60,7 +60,7 @@ From the agent output, note:
 
 ## Step 3: Post Using Template
 
-Use the template from `.claude/reference/templates/fresh-eyes-review-comment.md` and fill in all variables.
+Use the template from `.claude/templates/fresh-eyes-review-comment.md` and fill in all variables.
 
 Post to PR:
 ```bash
@@ -93,7 +93,7 @@ The value of independent review comes from:
 ## Common Mistakes to AVOID
 
 1. Using the implementing agent instead of spawning a fresh one
-2. Writing your own template instead of using the one in `.claude/reference/templates/`
+2. Writing your own template instead of using the one in `.claude/templates/`
 3. Fixing bugs WITHOUT posting findings first (breaks audit trail)
 4. Skipping self-review when fixing Fresh Eyes findings
 5. Not creating issues for deferred items (loses feedback)

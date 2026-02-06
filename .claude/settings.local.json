@@ -44,7 +44,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/bash-safety.py"
+            "command": "python .claude/hooks/bash-safety.py"
           }
         ]
       },
@@ -53,7 +53,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/security-check.py"
+            "command": "python .claude/hooks/security-check.py"
           }
         ]
       },
@@ -62,7 +62,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/validate-pr-template.py"
+            "command": "python .claude/hooks/validate-pr-template.py"
           }
         ]
       },
@@ -71,7 +71,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/validate-pr-template.py"
+            "command": "python .claude/hooks/validate-pr-template.py"
           }
         ]
       },
@@ -80,7 +80,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/validate-pr-template.py"
+            "command": "python .claude/hooks/validate-pr-template.py"
           }
         ]
       },
@@ -89,7 +89,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/require-fresh-eyes-review.py"
+            "command": "python .claude/hooks/require-fresh-eyes-review.py"
           }
         ]
       },
@@ -98,7 +98,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/require-fresh-eyes-review.py"
+            "command": "python .claude/hooks/require-fresh-eyes-review.py"
           }
         ]
       },
@@ -107,7 +107,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/require-fresh-eyes-review.py"
+            "command": "python .claude/hooks/require-fresh-eyes-review.py"
           }
         ]
       }
@@ -118,7 +118,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/validate-self-review.py"
+            "command": "python .claude/hooks/validate-self-review.py"
           }
         ]
       },
@@ -127,7 +127,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/reference/hooks/archive-plan.py"
+            "command": "python .claude/hooks/archive-plan.py"
           }
         ]
       }
