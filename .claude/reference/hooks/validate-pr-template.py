@@ -96,11 +96,11 @@ def validate_pr_template(body: str, is_docs_pr: bool = False) -> list[str]:
         "Summary": r"##\s*summary",
         "Self-Review": r"##\s*self-review",
         "Checklist Verified": r"###?\s*checklist\s*verified",
-        "Security checkbox": r"\[x\]\s*security",
-        "Correctness checkbox": r"\[x\]\s*correctness",
-        "Logic flow checkbox": r"\[x\]\s*logic\s*flow",
-        "User impact checkbox": r"\[x\]\s*(?:user\s*impact|tests)",
-        "Best practices checkbox": r"\[x\]\s*(?:best\s*practices|architecture|quality)",
+        "Security checkbox (expected: '- [x] Security ...')": r"\[x\]\s*security",
+        "Correctness checkbox (expected: '- [x] Correctness ...')": r"\[x\]\s*correctness",
+        "Logic flow checkbox (expected: '- [x] Logic flow ...')": r"\[x\]\s*logic\s*flow",
+        "User impact checkbox (expected: '- [x] User impact ...')": r"\[x\]\s*user\s*impact",
+        "Best practices checkbox (expected: '- [x] Best practices ...')": r"\[x\]\s*best\s*practices",
         "Test Plan": r"##\s*test\s*plan",
     }
 
