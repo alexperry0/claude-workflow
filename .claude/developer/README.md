@@ -37,7 +37,7 @@ Before pushing code, the AI reviews its own work.
 
 ### Self-Review
 
-The AI reads its changes through the eyes of a senior developer. It checks:
+The AI reviews its own changes using the self-reviewer checklist. It checks:
 
 - **Security** — No secrets exposed, no injection vulnerabilities
 - **Correctness** — Logic is right, edge cases handled
@@ -54,11 +54,21 @@ Specialized agents examine the code for specific issues:
 
 | Agent | What it checks |
 |-------|----------------|
-| Code reviewer | Guidelines and patterns |
-| Silent failure hunter | Error handling gaps |
-| Type analyzer | Data structure design |
+| `code-reviewer` | Quality, clarity, robustness, maintainability |
+| `plan-reviewer` | Architectural plan soundness (zero context) |
+| `ux-reviewer` | Usability, accessibility, UX quality |
+| `engineering-manager` | Epic orchestration, parallel development |
+| `product-manager` | Requirements, work item structure |
 
-These run during self-review if available.
+Plugin agents (if installed):
+
+| Agent | What it checks |
+|-------|----------------|
+| `pr-review-toolkit:code-reviewer` | Guidelines and patterns |
+| `pr-review-toolkit:silent-failure-hunter` | Error handling gaps |
+| `pr-review-toolkit:type-design-analyzer` | Data structure design |
+
+Built-in agents live in `.claude/agents/`. Plugin agents are installed separately.
 
 ## Ship
 

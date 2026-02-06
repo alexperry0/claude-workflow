@@ -15,7 +15,7 @@ These two commands are all you need for autonomous work.
 
 | Command | What it does |
 |---------|--------------|
-| `/self-review` | Review current changes using senior developer checklist |
+| `/self-review` | Review current changes using self-reviewer checklist |
 | `/create-pr` | Push branch and create pull request with full template |
 | `/post-fresh-eyes-review` | Run independent review and post findings to PR |
 | `/verify-pr-ready` | Check that CI passes and PR is ready to merge |

@@ -133,7 +133,7 @@ How to fix:
 
 If this is a false positive (test file, documentation, etc.):
   • Move the file to a tests/ or samples/ directory
-  • Or update .claude/reference/hooks/security-check.py to add an exemption
+  • Or update .claude/hooks/security-check.py to add an exemption
 """
         print(error_msg, file=sys.stderr)
         sys.exit(2)  # BLOCK the operation

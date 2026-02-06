@@ -2,7 +2,7 @@
 """
 Self-Review Format Validation Hook (PostToolUse)
 
-Validates that self-review output follows the Senior Developer persona checklist.
+Validates that self-review output follows the Self-Reviewer persona checklist.
 This is a POST hook - it adds context/warnings after the tool completes rather than blocking.
 
 Exit Codes:
@@ -11,7 +11,7 @@ Exit Codes:
 Output:
   JSON with additionalContext if format issues detected
 
-Required checklist items (from .claude/reference/personas/senior-developer.md):
+Required checklist items (from .claude/personas/self-reviewer.md):
   - Security
   - Correctness
   - Logic flow
@@ -37,6 +37,8 @@ def check_self_review_format(content: str) -> dict:
         "self review",
         "checklist verified",
         "senior developer",
+        "self-reviewer",
+        "self reviewer",
         "review complete"
     ]
 
@@ -134,14 +136,14 @@ def main():
 Your self-review may be missing these checklist categories:
 {chr(10).join(f'  • {issue}' for issue in result["issues"])}
 
-The Senior Developer persona requires checking ALL of these:
+The Self-Reviewer persona requires checking ALL of these:
   ✓ Security (secrets, injection, auth bypass)
   ✓ Correctness (logic errors, null refs, race conditions)
   ✓ Logic flow (control flow, state transitions, algorithms)
   ✓ User impact (functionality, performance)
   ✓ Best practices (error handling, architecture)
 
-Reference: .claude/reference/personas/senior-developer.md
+Reference: .claude/personas/self-reviewer.md
 """
             }
         }

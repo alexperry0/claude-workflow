@@ -8,9 +8,15 @@ Provides slash commands, safety hooks, review personas, and guides that enable a
 
 ```
 .claude/
+├── agents/              # Task tool agents
+│   ├── code-reviewer.md           # Code review (quality + pragmatism)
+│   ├── plan-reviewer.md           # Architectural plan review (zero context)
+│   ├── ux-reviewer.md             # UI/UX review
+│   ├── engineering-manager.md     # Epic orchestration + parallel dev
+│   └── product-manager.md         # Work item creation + requirements
 ├── commands/            # 10 slash commands
 │   ├── ship.md          # Full PR workflow (review → PR → merge)
-│   ├── self-review.md   # Self-review with senior developer checklist
+│   ├── self-review.md   # Self-review with self-reviewer checklist
 │   ├── create-pr.md     # Create PR with lean template
 │   ├── merge-pr.md      # Squash merge and cleanup
 │   ├── verify-pr-ready.md
@@ -19,21 +25,21 @@ Provides slash commands, safety hooks, review personas, and guides that enable a
 │   ├── next-issue.md    # Auto-select highest priority issue
 │   ├── block-issue.md   # Mark blocked, move to next
 │   └── prioritize.md    # Release planning
-├── reference/
-│   ├── hooks/           # 5 safety hooks (Python 3.10+)
-│   │   ├── bash-safety.py          # Block push to main, force push, dangerous ops
-│   │   ├── security-check.py       # Block hardcoded secrets, SQL injection
-│   │   ├── validate-pr-template.py # Enforce PR template sections
-│   │   ├── validate-self-review.py # Warn on incomplete self-review
-│   │   └── require-fresh-eyes-review.py  # Block merge without review
-│   ├── guides/
-│   │   ├── git-workflow.md          # Branch naming, commits, PR process
-│   │   └── acceptance-criteria.md   # GIVEN/WHEN/THEN format
-│   ├── personas/
-│   │   ├── senior-developer.md      # Self-review persona
-│   │   └── fresh-eyes-reviewer.md   # Independent review persona
-│   └── templates/
-│       └── fresh-eyes-review-comment.md  # PR comment template
+├── hooks/               # 6 safety hooks (Python 3.10+)
+│   ├── bash-safety.py             # Block push to main, force push, dangerous ops
+│   ├── security-check.py          # Block hardcoded secrets, SQL injection
+│   ├── validate-pr-template.py    # Enforce PR template sections
+│   ├── validate-self-review.py    # Warn on incomplete self-review
+│   ├── require-fresh-eyes-review.py  # Block merge without review
+│   └── archive-plan.py            # Archive plan files after implementation
+├── guides/
+│   ├── git-workflow.md            # Branch naming, commits, PR process
+│   └── acceptance-criteria.md     # GIVEN/WHEN/THEN format
+├── personas/
+│   ├── self-reviewer.md           # Self-review persona
+│   └── fresh-eyes-reviewer.md     # Independent review persona
+├── templates/
+│   └── fresh-eyes-review-comment.md  # PR comment template
 ├── developer/
 │   ├── README.md        # The autonomous loop explained
 │   └── commands.md      # Command reference

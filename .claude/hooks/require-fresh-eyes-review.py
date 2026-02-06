@@ -11,7 +11,7 @@ Exit Codes:
 
 Detection:
   - Checks for "## Fresh Eyes Review" header
-  - Looks for verification checklist pattern
+  - Looks for review structure patterns (findings, status sections)
 """
 
 import json
@@ -151,8 +151,8 @@ Please run the following before merging:
 Required Fresh Eyes Review comment must include:
   • "## Fresh Eyes Review" header
   • Reviewer identification (Claude fresh context agent)
-  • Verification checklist (Security, Correctness, Logic flow, etc.)
-  • Review status (Ready/Needs Changes)
+  • Findings section (P1/P2/P3 issues or "No issues")
+  • Review status (Ready to merge / Needs changes / Re-review needed)
 """
         print(error_msg, file=sys.stderr)
         sys.exit(2)  # Exit code 2 = BLOCK the tool call
