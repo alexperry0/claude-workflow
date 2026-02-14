@@ -32,7 +32,8 @@
       "Skill(hookify:list)",
       "Skill(hookify:configure)",
       "Skill(hookify:hookify)",
-      "Skill(hookify:help)"
+      "Skill(hookify:help)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []
