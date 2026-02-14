@@ -44,7 +44,8 @@ Provides slash commands, safety hooks, review personas, and guides that enable a
 │   ├── README.md        # The autonomous loop explained
 │   └── commands.md      # Command reference
 ├── README.md            # Framework overview
-└── settings.local.json  # Hook config + permissions
+├── settings.local.json  # Hook config + permissions (project-specific)
+└── settings.local.json.template  # Portable template for new installs
 ```
 
 ## Prerequisites
@@ -55,9 +56,31 @@ Provides slash commands, safety hooks, review personas, and guides that enable a
 
 ## Installation
 
+### Quick Install (recommended)
+
+```bash
+# From a cloned copy of this repo
+./install.sh /path/to/your-project
+
+# Or one-liner (without cloning)
+curl -fsSL https://raw.githubusercontent.com/alexperry0/claude-workflow/main/install.sh | bash -s -- /path/to/your-project
+```
+
+The script copies `.claude/` (agents, commands, hooks, guides, personas, templates) and creates a starter `CLAUDE.md` from the template. It never overwrites an existing `CLAUDE.md` or `settings.local.json`.
+
+### Post-Install
+
+1. Edit `CLAUDE.md` with your project's repo info, build commands, and architecture
+2. Review `.claude/settings.local.json` and add project-specific permissions (MCP servers, plugins, etc.)
+3. Verify Python 3.10+ and `gh` CLI are available (hooks need them)
+
+### Manual Install
+
+If you prefer not to use the script:
+
 1. Copy the `.claude/` directory into your project root
 2. Copy `CLAUDE.md.template` to `CLAUDE.md` and fill in project-specific sections
-3. Adjust `.claude/settings.local.json` permissions for your project (add project-specific MCP servers, domain-specific WebFetch, etc.)
+3. Copy `.claude/settings.local.json.template` to `.claude/settings.local.json` and adjust permissions
 4. Verify hooks work: Python 3.10+ and `gh` CLI available
 
 ## CLAUDE.md Convention
