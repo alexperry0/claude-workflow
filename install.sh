@@ -5,15 +5,27 @@ set -euo pipefail
 # Installs the .claude/ framework and CLAUDE.md.template into a target project.
 #
 # Usage:
-#   ./install.sh [TARGET_DIR]
+#   ./install.sh [--force] [TARGET_DIR]
+#
+# Options:
+#   --force    Overwrite existing .claude/ directory without prompting
 #
 # If TARGET_DIR is omitted, installs into the current directory.
 # Can also be run via curl:
-#   curl -fsSL https://raw.githubusercontent.com/alexperry0/claude-workflow/main/install.sh | bash -s -- [TARGET_DIR]
+#   curl -fsSL https://raw.githubusercontent.com/alexperry0/claude-workflow/main/install.sh | bash -s -- [--force] [TARGET_DIR]
 
 REPO_URL="https://github.com/alexperry0/claude-workflow.git"
 
-TARGET_DIR="${1:-.}"
+# Parse arguments
+FORCE=false
+TARGET_DIR="."
+for arg in "$@"; do
+    case "$arg" in
+        --force) FORCE=true ;;
+        *) TARGET_DIR="$arg" ;;
+    esac
+done
+
 if [ ! -d "$TARGET_DIR" ]; then
     echo "Error: Target directory '$TARGET_DIR' does not exist."
     echo "Create it first, or omit the argument to install in the current directory."
@@ -35,48 +47,48 @@ else
     CLEANUP=true
 fi
 
+cleanup() {
+    [ "$CLEANUP" = true ] && rm -rf "$CLONE_DIR"
+}
+
 # Warn if .claude/ already exists
 if [ -d "$TARGET_DIR/.claude" ]; then
-    echo "WARNING: $TARGET_DIR/.claude/ already exists."
-    echo "  Re-running will overwrite customized commands, hooks, agents, etc."
-    # Detect piped execution (stdin is not a terminal)
-    if [ -t 0 ]; then
+    if [ "$FORCE" = true ]; then
+        echo "WARNING: Overwriting $TARGET_DIR/.claude/ (--force specified)"
+    elif [ -t 0 ]; then
+        echo "WARNING: $TARGET_DIR/.claude/ already exists."
+        echo "  Re-running will overwrite customized commands, hooks, agents, etc."
         read -p "  Continue? [y/N] " confirm
         if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
             echo "Aborted."
-            [ "$CLEANUP" = true ] && rm -rf "$CLONE_DIR"
+            cleanup
             exit 1
         fi
     else
-        echo "  (Piped mode detected — use ./install.sh locally for interactive prompt)"
-        echo "  Proceeding with overwrite..."
+        echo "ERROR: $TARGET_DIR/.claude/ already exists."
+        echo "  Cannot prompt for confirmation in piped mode."
+        echo "  Pass --force to overwrite: bash -s -- --force [TARGET_DIR]"
+        cleanup
+        exit 1
     fi
 fi
 
 echo "Installing claude-workflow into: $TARGET_DIR"
 
-# Copy .claude/ directory, excluding pycache, plans, and settings.local.json
-if command -v rsync &>/dev/null; then
-    rsync -a --exclude='__pycache__' --exclude='plans/' --exclude='settings.local.json' \
-        "$SOURCE_DIR/.claude/" "$TARGET_DIR/.claude/"
-else
-    # Preserve existing settings.local.json before overwriting
-    EXISTING_SETTINGS=""
-    if [ -f "$TARGET_DIR/.claude/settings.local.json" ]; then
-        EXISTING_SETTINGS="$(mktemp)"
-        cp "$TARGET_DIR/.claude/settings.local.json" "$EXISTING_SETTINGS"
+# Directories to copy from .claude/ (explicit list avoids copying settings.local.json)
+SUBDIRS="agents commands guides hooks personas templates"
+
+mkdir -p "$TARGET_DIR/.claude"
+for dir in $SUBDIRS; do
+    if [ -d "$SOURCE_DIR/.claude/$dir" ]; then
+        if command -v rsync &>/dev/null; then
+            rsync -a --exclude='__pycache__' "$SOURCE_DIR/.claude/$dir/" "$TARGET_DIR/.claude/$dir/"
+        else
+            cp -r "$SOURCE_DIR/.claude/$dir" "$TARGET_DIR/.claude/$dir"
+            find "$TARGET_DIR/.claude/$dir" -type d -name '__pycache__' -prune -exec rm -rf {} + 2>/dev/null || true
+        fi
     fi
-    cp -r "$SOURCE_DIR/.claude" "$TARGET_DIR/.claude"
-    find "$TARGET_DIR/.claude" -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true
-    rm -rf "$TARGET_DIR/.claude/plans" 2>/dev/null || true
-    # Restore existing settings or remove the source's copy
-    if [ -n "$EXISTING_SETTINGS" ]; then
-        cp "$EXISTING_SETTINGS" "$TARGET_DIR/.claude/settings.local.json"
-        rm -f "$EXISTING_SETTINGS"
-    else
-        rm -f "$TARGET_DIR/.claude/settings.local.json" 2>/dev/null || true
-    fi
-fi
+done
 
 # Install settings.local.json only if one doesn't already exist
 if [ ! -f "$TARGET_DIR/.claude/settings.local.json" ]; then
@@ -94,9 +106,7 @@ if [ ! -f "$TARGET_DIR/CLAUDE.md" ]; then
 fi
 
 # Cleanup temp clone if needed
-if [ "$CLEANUP" = true ]; then
-    rm -rf "$CLONE_DIR"
-fi
+cleanup
 
 echo ""
 echo "Done! Installed:"
