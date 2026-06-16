@@ -20,6 +20,9 @@
     - quote    : a pulled-out insight / surprise / lesson
     - takeaways : final "what I learned" recap list
   Keep ~4-6 bullets per content slide; split if longer.
+
+  ESCAPING: escape < > & in EVERY interpolated value (titles, bullets, quotes, code),
+  not only code slides — harvested text often contains them and raw < breaks the markup.
 -->
 <html lang="en">
 <head>
@@ -179,11 +182,16 @@
         else if (e.key === 'Home') { show(0); }
         else if (e.key === 'End') { show(slides.length - 1); }
         else if (e.key === 'f' || e.key === 'F') {
-          if (!document.fullscreenElement) document.documentElement.requestFullscreen();
-          else document.exitFullscreen();
+          if (!document.fullscreenElement) {
+            var fs = document.documentElement.requestFullscreen();
+            if (fs && fs.catch) fs.catch(function () {});
+          } else { document.exitFullscreen(); }
         }
       });
       document.getElementById('deck').addEventListener('click', function (e) {
+        // don't hijack clicks meant for reading: links, code, quotes, or text selection
+        if (e.target.closest('pre, blockquote, a')) return;
+        if (window.getSelection && String(window.getSelection())) return;
         // click right half = next, left half = prev
         go(e.clientX > window.innerWidth / 2 ? 1 : -1);
       });

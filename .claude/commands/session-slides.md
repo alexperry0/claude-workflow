@@ -94,7 +94,9 @@ Rules:
    generated `<section class="slide">` blocks per the deck spec, using the slide-type
    patterns documented in the template.
 5. **Do not touch the CSS or JS** — they must stay inline and dependency-free.
-6. **Escape `<`, `>`, `&`** inside any code slide content.
+6. **Escape `<`, `>`, `&` in _all_ interpolated text** — titles, bullets, quotes, and
+   code — not just code slides. Harvested session content (file paths, `Array<T>`, `a && b`,
+   error messages) routinely contains these characters and will break slide markup if raw.
 
 ### Phase 4 — Fresh-eyes verify
 
@@ -108,7 +110,7 @@ Spawn **one verifier subagent with no session context** (`subagent_type: Explore
 
 Fix any P1/P2 findings, then re-open the file to confirm it's valid.
 
-### Phase 5 — Report
+### Wrap-up — Report
 
 Tell the user:
 - the deck path,
