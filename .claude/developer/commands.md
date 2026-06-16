@@ -29,6 +29,12 @@ These two commands are all you need for autonomous work.
 | `/create-deferred-issues` | Turn review findings into new issues for later |
 | `/prioritize` | Reorder backlog based on release goals |
 
+## Knowledge Capture
+
+| Command | What it does |
+|---------|--------------|
+| `/session-slides` | Summarize the current session's learning into a self-contained HTML slide deck |
+
 ## Workflow
 
 ```
