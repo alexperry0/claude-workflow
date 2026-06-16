@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--
+  learning-deck.html — self-contained session-learning slide deck template.
+
+  HOW THE /session-slides SKILL FILLS THIS IN
+  -------------------------------------------
+  1. Copy this file to docs/session-decks/<YYYY-MM-DD>-<slug>.html
+  2. Replace the {{...}} tokens in <head> and the title slide.
+  3. Replace EVERYTHING between <!-- SLIDES:START --> and <!-- SLIDES:END -->
+     with the generated <section class="slide"> blocks (see the slide-type
+     reference inside that block).
+  4. Do NOT edit the CSS or JS — they are dependency-free and must stay inline
+     so the deck works offline forever.
+
+  Slide types available (each is one <section class="slide">):
+    - title    : deck title + subtitle + meta line
+    - section  : large divider heading for a new part of the story
+    - content  : a heading + bulleted points (the workhorse slide)
+    - code     : a heading + a <pre><code> block (escape < > &)
+    - quote    : a pulled-out insight / surprise / lesson
+    - takeaways : final "what I learned" recap list
+  Keep ~4-6 bullets per content slide; split if longer.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{DECK_TITLE}}</title>
+  <style>
+    :root {
+      --ink: #15171c;
+      --ink-soft: #1e2128;
+      --paper: #ece7df;
+      --paper-dim: #a9a395;
+      --accent: #e8a04b;
+      --accent-2: #e07a5f;
+      --rule: #33363f;
+      --code-bg: #0f1115;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font: 400 1rem/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
+    .deck { position: relative; height: 100vh; width: 100vw; }
+    .slide {
+      position: absolute; inset: 0;
+      display: none;
+      flex-direction: column; justify-content: center;
+      padding: clamp(2.5rem, 7vw, 7rem);
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .slide.active { display: flex; opacity: 1; }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 700; line-height: 1.12; }
+    h1 { font-size: clamp(2.2rem, 6vw, 4.4rem); letter-spacing: -0.5px; }
+    h2 { font-size: clamp(1.7rem, 4.2vw, 3rem); margin-bottom: 1.4rem; }
+    h2 .kicker {
+      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: .8rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .8rem;
+    }
+    p.sub { font-size: clamp(1.1rem, 2.4vw, 1.6rem); color: var(--paper-dim); margin-top: 1.2rem; max-width: 50ch; }
+    p.meta {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85rem;
+      color: var(--paper-dim); margin-top: 2.5rem; letter-spacing: .5px;
+    }
+    ul.points { list-style: none; max-width: 60ch; }
+    ul.points li {
+      position: relative; padding-left: 1.6rem; margin: .85rem 0;
+      font-size: clamp(1.05rem, 2.1vw, 1.45rem);
+    }
+    ul.points li::before {
+      content: "▸"; position: absolute; left: 0; top: 0; color: var(--accent); font-size: .95em;
+    }
+    ul.points li strong { color: var(--accent-2); font-weight: 600; }
+    pre {
+      background: var(--code-bg); border: 1px solid var(--rule); border-radius: 8px;
+      padding: 1.4rem 1.6rem; overflow: auto; max-width: 100%;
+    }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: clamp(.8rem, 1.5vw, 1.05rem); color: #dfe6f0; }
+    .slide--section { background: var(--ink-soft); }
+    .slide--section h2 { font-size: clamp(2rem, 6vw, 4rem); border-left: 4px solid var(--accent); padding-left: 1.2rem; }
+    .slide--quote blockquote {
+      font-family: Georgia, serif; font-size: clamp(1.5rem, 4vw, 2.6rem); font-style: italic;
+      line-height: 1.3; max-width: 24ch; border: none;
+    }
+    .slide--quote blockquote::before { content: "\201C"; color: var(--accent); font-size: 1.4em; vertical-align: -0.35em; margin-right: .05em; }
+    .slide--quote .attrib { color: var(--paper-dim); margin-top: 1.5rem; font-size: 1rem; }
+    /* chrome */
+    .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); width: 0; transition: width .25s ease; z-index: 10; }
+    .counter {
+      position: fixed; bottom: 1.1rem; right: 1.4rem; z-index: 10;
+      font-family: ui-monospace, monospace; font-size: .8rem; color: var(--paper-dim);
+    }
+    .hint {
+      position: fixed; bottom: 1.1rem; left: 1.4rem; z-index: 10;
+      font-family: ui-monospace, monospace; font-size: .75rem; color: var(--rule);
+    }
+    @media print {
+      .slide { display: flex !important; opacity: 1 !important; position: relative; page-break-after: always; height: 100vh; }
+      .progress, .counter, .hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="deck" id="deck">
+    <!-- SLIDES:START -->
+
+    <!-- title slide -->
+    <section class="slide slide--title">
+      <h1>{{DECK_TITLE}}</h1>
+      <p class="sub">{{DECK_SUBTITLE}}</p>
+      <p class="meta">{{SESSION_DATE}} · {{MODEL}} · generated by /session-slides</p>
+    </section>
+
+    <!-- section divider -->
+    <section class="slide slide--section">
+      <h2>{{SECTION_NAME}}</h2>
+    </section>
+
+    <!-- content slide (the workhorse) -->
+    <section class="slide slide--content">
+      <h2><span class="kicker">{{KICKER}}</span>{{SLIDE_HEADING}}</h2>
+      <ul class="points">
+        <li>{{POINT}} — with optional <strong>emphasis</strong></li>
+        <li>{{POINT}}</li>
+        <li>{{POINT}}</li>
+      </ul>
+    </section>
+
+    <!-- code slide -->
+    <section class="slide slide--code">
+      <h2><span class="kicker">Technique</span>{{SLIDE_HEADING}}</h2>
+      <pre><code>{{ESCAPED_CODE}}</code></pre>
+    </section>
+
+    <!-- quote / insight slide -->
+    <section class="slide slide--quote">
+      <blockquote>{{INSIGHT}}</blockquote>
+      <p class="attrib">— {{ATTRIBUTION}}</p>
+    </section>
+
+    <!-- takeaways slide -->
+    <section class="slide slide--content">
+      <h2><span class="kicker">Recap</span>What I'd carry forward</h2>
+      <ul class="points">
+        <li>{{TAKEAWAY}}</li>
+        <li>{{TAKEAWAY}}</li>
+        <li>{{TAKEAWAY}}</li>
+      </ul>
+    </section>
+
+    <!-- SLIDES:END -->
+  </div>
+  <div class="counter" id="counter">1 / 1</div>
+  <div class="hint">← → navigate · F fullscreen</div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var i = 0;
+      var counter = document.getElementById('counter');
+      var progress = document.getElementById('progress');
+      function show(n) {
+        i = Math.max(0, Math.min(slides.length - 1, n));
+        slides.forEach(function (s, idx) { s.classList.toggle('active', idx === i); });
+        counter.textContent = (i + 1) + ' / ' + slides.length;
+        progress.style.width = ((i + 1) / slides.length * 100) + '%';
+        if (location.hash !== '#' + (i + 1)) history.replaceState(null, '', '#' + (i + 1));
+      }
+      function go(d) { show(i + d); }
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { go(1); e.preventDefault(); }
+        else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { go(-1); e.preventDefault(); }
+        else if (e.key === 'Home') { show(0); }
+        else if (e.key === 'End') { show(slides.length - 1); }
+        else if (e.key === 'f' || e.key === 'F') {
+          if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+          else document.exitFullscreen();
+        }
+      });
+      document.getElementById('deck').addEventListener('click', function (e) {
+        // click right half = next, left half = prev
+        go(e.clientX > window.innerWidth / 2 ? 1 : -1);
+      });
+      var start = parseInt((location.hash || '#1').slice(1), 10);
+      show(isNaN(start) ? 0 : start - 1);
+    })();
+  </script>
+</body>
+</html>
